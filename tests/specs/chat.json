@@ -1,0 +1,58 @@
+[
+  {
+    "name": "chat handler responds to a message",
+    "steps": [
+      {
+        "send": { "text": "hello" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "Hey! 👋 How can I help you today?" }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "chat handler responds to a question",
+    "steps": [
+      {
+        "send": { "text": "tell me a joke" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "Why did the programmer quit? Because they didn't get arrays! 😄" }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "chat handler responds to thanks",
+    "steps": [
+      {
+        "send": { "text": "thank you" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "You're welcome! 😊 Anything else I can help with?" }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "chat handler responds to general input",
+    "steps": [
+      {
+        "send": { "text": "random text here" },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "I heard you say: \"random text here\"\n\nTry asking me something or tap /start for the menu!" }
+          }
+        ]
+      }
+    ]
+  }
+]

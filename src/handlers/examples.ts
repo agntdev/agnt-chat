@@ -1,15 +1,20 @@
 import { Composer } from "grammy";
+import type { Ctx } from "../bot.js";
+import { inlineButton, inlineKeyboard } from "../toolkit/index.js";
 
-// SCAFFOLD — generated from the bot blueprint BEFORE the agent runs.
-// Keep a LIVE registration (.command / .callbackQuery / …) so this feature is
-// never an empty stub. Replace the reply body with real logic + copy; if you
-// change the user-facing text, update tests/specs to match EXACTLY.
-// Do NOT rewrite src/bot.ts — buildBot() already auto-loads this module.
+const composer = new Composer<Ctx>();
 
-const composer = new Composer();
+const EXAMPLES = "Here are some things you can try:\n\n💬 \"What's the weather like?\" — Ask a question\n📝 \"Summarize this: Long article text here...\" — Summarize text\n💬 \"Tell me a fun fact\" — Casual chat\n💬 \"How do I make pasta?\" — Get advice\n\nJust send a message and I'll do my best to help!";
+
+const backToMenu = inlineKeyboard([[inlineButton("⬅️ Back to menu", "menu:main")]]);
 
 composer.command("examples", async (ctx) => {
-  await ctx.reply("Display sample interactions");
+  await ctx.reply(EXAMPLES);
+});
+
+composer.callbackQuery("examples:show", async (ctx) => {
+  await ctx.answerCallbackQuery();
+  await ctx.editMessageText(EXAMPLES, { reply_markup: backToMenu });
 });
 
 export default composer;

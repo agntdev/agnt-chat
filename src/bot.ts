@@ -2,11 +2,20 @@ import { Composer } from "grammy";
 import { createBot, type BotContext } from "./toolkit/index.js";
 import type { StorageAdapter } from "grammy";
 
-// The per-chat session shape (ephemeral conversation state only). Extend as the
-// bot grows. Durable domain data must NOT live here — use the toolkit's
-// persistent storage (see AGENTS.md).
+export interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+  timestamp: number;
+}
+
+export interface RateLimitEntry {
+  timestamps: number[];
+}
+
 export interface Session {
-  // example: step?: "awaiting_amount";
+  messages: ChatMessage[];
+  rateLimit: RateLimitEntry;
+  createdAt: number;
 }
 
 export type Ctx = BotContext<Session>;
@@ -42,7 +51,11 @@ export interface BuildBotOptions {
  */
 export async function buildBot(token: string, opts: BuildBotOptions = {}) {
   const bot = createBot<Session>(token, {
-    initial: () => ({}),
+    initial: () => ({
+      messages: [],
+      rateLimit: { timestamps: [] },
+      createdAt: Date.now(),
+    }),
     storage: opts.storage,
   });
 
