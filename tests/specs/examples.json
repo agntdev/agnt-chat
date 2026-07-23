@@ -1,19 +1,26 @@
 [
   {
-    "name": "/examples",
+    "name": "/examples shows sample interactions",
     "steps": [
       {
+        "send": { "text": "/examples" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Display sample interactions"
+              "text": "Here are some things you can try:\n\n💬 \"What's the weather like?\" — Ask a question\n📝 \"Summarize this: Long article text here...\" — Summarize text\n💬 \"Tell me a fun fact\" — Casual chat\n💬 \"How do I make pasta?\" — Get advice\n\nJust send a message and I'll do my best to help!"
             }
           }
-        ],
-        "send": {
-          "text": "/examples"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "the Examples menu button shows the same text",
+    "steps": [
+      {
+        "send": { "callback": "examples:show" },
+        "expect": [{ "method": "editMessageText" }]
       }
     ]
   }

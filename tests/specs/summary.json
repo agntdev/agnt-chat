@@ -1,19 +1,40 @@
 [
   {
-    "name": "/summary",
+    "name": "/summary without text shows help",
     "steps": [
       {
+        "send": { "text": "/summary" },
         "expect": [
           {
             "method": "sendMessage",
             "payload": {
-              "text": "Request text summarization"
+              "text": "Send me text to summarize, like:\n\n📋 Summarize this: [paste your text here]\n\nOr just describe what you'd like summarized!"
             }
           }
-        ],
-        "send": {
-          "text": "/summary"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "/summary with text returns a summary",
+    "steps": [
+      {
+        "send": { "text": "/summary The quick brown fox jumps over the lazy dog. This is a second sentence. And a third one here. The fourth sentence continues." },
+        "expect": [
+          {
+            "method": "sendMessage",
+            "payload": { "text": "Summary: The quick brown fox jumps over the lazy dog. This is a second sentence." }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "the Summary menu button shows the help text",
+    "steps": [
+      {
+        "send": { "callback": "summary:show" },
+        "expect": [{ "method": "editMessageText" }]
       }
     ]
   }

@@ -1,19 +1,24 @@
 [
   {
-    "name": "/clear",
+    "name": "/clear resets conversation history",
     "steps": [
       {
+        "send": { "text": "/clear" },
         "expect": [
           {
             "method": "sendMessage",
-            "payload": {
-              "text": "Reset conversation history"
-            }
+            "payload": { "text": "Chat history cleared! 🗑\n\nSend me a message to start fresh." }
           }
-        ],
-        "send": {
-          "text": "/clear"
-        }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "the Clear menu button confirms and clears",
+    "steps": [
+      {
+        "send": { "callback": "clear:confirm" },
+        "expect": [{ "method": "editMessageText" }]
       }
     ]
   }

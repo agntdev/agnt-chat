@@ -1,0 +1,11 @@
+[
+  {
+    "name": "usage button shows session stats",
+    "steps": [
+      {
+        "send": { "callback": "usage:show" },
+        "expect": [{ "method": "editMessageText" }]
+      }
+    ]
+  }
+]
